@@ -1,6 +1,6 @@
-# Project Goal
+# Calorie Predictor
 
-A machine learning project that predicts the calorie content of food items based on their macronutrient profile.
+A machine learning project that predicts the calorie content of food items from their macronutrient.
 
 ## Project Overview
 
@@ -10,8 +10,9 @@ This project compares three traditional machine learning algorithms for a regres
 2. **Decision Tree Regressor**
 3. **Random Forest Regressor**
 
-The models were trained and evaluated under identical experimental conditions (same 80/20 train-test split, same 5-fold cross-validation strategy, and same preprocessing pipeline) to ensure a fair comparison. Linear Regression achieved the lowest cross-validation error and was selected as the final model.
+All three models were trained and evaluated under identical experimental conditions: the same 80/20 train-test split, the same 5-fold cross-validation strategy, and the same preprocessing pipeline. This ensures a fair comparison.
 
+Linear Regression achieved the lowest cross-validation RMSE (30.04 ± 0.38) and was selected as the final model. On the untouched test set, it achieved an RMSE of 29.67, MAE of 24.06, and R² of 0.9334. The learned coefficients approximated the Atwater energy conversion factors (~4 kcal/g for protein and carbohydrates, ~9 kcal/g for fat).
 ## Dataset
 
 - **Source:**  https://www.kaggle.com/datasets/amineipad/food-nutrition-dataset-for-calorie-classification
