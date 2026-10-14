@@ -34,6 +34,6 @@ In terminal follow these steps:
 
 3. Runnin app locally:
 
-   streamlit run app/app.py
+   py -m streamlit run app/app.py
 
    
