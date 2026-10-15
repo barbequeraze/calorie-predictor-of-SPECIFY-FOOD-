@@ -47,9 +47,15 @@ calorie-predictor/
 │   ├── random_forest.ipynb
 │   └── final_model_evaluation.ipynb
 ├── src/                 Reusable preprocessing and modeling code
+│   └── preprocess.py
 ├── models/              Saved best pipeline (preprocessing + model)
+│   ├── best_pipeline.joblib
+│   └── best_pipeline.json
 ├── documentation/       Technical documentation and screenshots
+│   └── data_dictionary.md
 ├── paper/               Final paper (DOCX and PDF)
+│   ├── Calorie Prediction Using Machine Learning and the Atwater Formula.docx
+│   └── Calorie Prediction Using Machine Learning and the Atwater Formula.pdf
 ├── README.md
 └── requirements.txt
 ```
