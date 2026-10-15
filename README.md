@@ -41,11 +41,11 @@ calorie-predictor/
 │   ├── original/        Original dataset and source note
 │   └── processed/       Cleaned dataset
 ├── notebooks/
-│   ├── 00_eda.ipynb
-│   ├── 01_linear_regression.ipynb
-│   ├── 02_decision_tree.ipynb
-│   ├── 03_random_forest.ipynb
-│   └── 04_final_model_evaluation.ipynb
+│   ├── eda.ipynb
+│   ├── linear_regression.ipynb
+│   ├── decision_tree.ipynb
+│   ├── random_forest.ipynb
+│   └── final_model_evaluation.ipynb
 ├── src/                 Reusable preprocessing and modeling code
 ├── models/              Saved best pipeline (preprocessing + model)
 ├── documentation/       Technical documentation and screenshots
@@ -104,11 +104,11 @@ Enter the nutrient values for one food item and the app returns the predicted ca
 
 | Field | Unit | Allowed range |
 | --- | --- | --- |
-| Protein | g | [fill in from app] |
+| Protein | g | 0 to 300 |
 | Carbohydrates | g | 0 to 300 |
-| Fat | g | [fill in from app] |
-| Fiber | g | [fill in from app] |
-| Sugar | g | [fill in from app] |
+| Fat | g | 0 to 300 |
+| Fiber | g | 0 to 300 |
+| Sugar | g | 0 to 300 |
 
 Input rules:
 - Negative values are not accepted.
