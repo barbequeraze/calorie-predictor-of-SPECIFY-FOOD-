@@ -145,7 +145,7 @@ The output is a single estimate in kcal. Linear Regression does not provide clas
 Millonte, Lord Cedrick M.\
 Luna, Robi Troy\
 Manalang, Wil Conrad\
-Cadiz, Jefferson de\
+Cadiz, Jefferson de
 
 ## Acknowledgments and References
 
