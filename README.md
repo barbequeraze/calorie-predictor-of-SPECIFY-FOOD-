@@ -1,39 +1,143 @@
-# Project Goal
+# Calorie Prediction from Macronutrients
 
-A machine learning project that predicts the calorie content of food items based on their macronutrient profile.
+Predicts the calorie content (kcal) of a food item from its protein, carbohydrate, fat, fiber and sugar content, using traditional machine learning. Final project for **241 – Machine Learning** (Instructor: Dr. Armida P. Salazar).
+
+**Deployed app:** https://atmxcjmrgtxo2rv8zdwk6w.streamlit.app/
 
 ## Project Overview
 
-This project compares three traditional machine learning algorithms for a regression task:
+This is a regression task. Three traditional algorithms were compared under identical conditions (same 80/20 train-test split, same preprocessing pipeline, same shuffled 5-fold cross-validation, same primary metric, random seed 42):
 
 1. **Linear Regression**
-2. **Decision Tree Regressor**
-3. **Random Forest Regressor**
+2. **Decision Tree Regressor** (grid search, 135 combinations)
+3. **Random Forest Regressor** (grid search, 54 combinations)
 
-The models were trained and evaluated under identical experimental conditions (same 80/20 train-test split, same 5-fold cross-validation strategy, and same preprocessing pipeline) to ensure a fair comparison. Linear Regression achieved the lowest cross-validation error and was selected as the final model.
+Linear Regression had the lowest cross-validation RMSE and was selected. It was evaluated once on the untouched test set.
+
+| Model | CV RMSE (kcal) | CV MAE (kcal) | CV R² |
+| --- | --- | --- | --- |
+| Linear Regression | 30.04 ± 0.38 | 23.91 ± 0.41 | 0.9357 ± 0.0026 |
+| Random Forest | 33.41 ± 0.85 | 26.33 ± 0.59 | 0.9205 ± 0.0037 |
+| Decision Tree | 40.99 ± 0.69 | 32.40 ± 0.50 | 0.8804 ± 0.0038 |
+
+**Final test result (Linear Regression):** RMSE 29.67 kcal, MAE 24.06 kcal, R² 0.9334.
 
 ## Dataset
 
-- **Source:** [Add source link here]
-- **Records:** 5,000 food items
-- **Features:** protein_g, carbs_g, fat_g, fiber_g, sugar_g
-- **Target:** calories
+- **Source:** Food Nutrition and Calories Dataset, Kaggle: https://www.kaggle.com/datasets/amineipad/food-nutrition-dataset-for-calorie-classification
+- **License:** MIT
+- **Records:** 5,000 food items (one row per food item)
+- **Features:** `protein_g`, `carbs_g`, `fat_g`, `fiber_g`, `sugar_g` (grams)
+- **Target:** `calories` (kcal)
+- **Not used:** `calorie_class`, because it is derived from the target (leakage)
+- The original file is in `data/original/` and is never modified. The cleaned file is in `data/processed/`.
+
+## Folder Structure
+
+```
+calorie-predictor/
+├── app/                 Streamlit application (app.py)
+├── data/
+│   ├── original/        Original dataset and source note
+│   └── processed/       Cleaned dataset
+├── notebooks/
+│   ├── 00_eda.ipynb
+│   ├── 01_linear_regression.ipynb
+│   ├── 02_decision_tree.ipynb
+│   ├── 03_random_forest.ipynb
+│   └── 04_final_model_evaluation.ipynb
+├── src/                 Reusable preprocessing and modeling code
+├── models/              Saved best pipeline (preprocessing + model)
+├── documentation/       Technical documentation and screenshots
+├── paper/               Final paper (DOCX and PDF)
+├── README.md
+└── requirements.txt
+```
 
 ## Installation
-In terminal follow these steps:
 
-1. Clone this repository:
+Requires Python 3.11. Run these commands in a terminal.
+
+1. Clone the repository:
 
    ```bash
    git clone https://github.com/barbeque-raze/calorie-predictor-of-SPECIFY-FOOD-.git
    cd calorie-predictor-of-SPECIFY-FOOD-
+   ```
 
-2. Install dependecies:
+2. (Recommended) Create and activate a virtual environment:
 
+   ```bash
+   python -m venv venv
+   source venv/bin/activate        # Windows: venv\Scripts\activate
+   ```
+
+3. Install the dependencies:
+
+   ```bash
    pip install -r requirements.txt
+   ```
 
-3. Runnin app locally:
+## Run the App Locally
 
-   streamlit run app/app.py
+From the repository root:
 
-   
+```bash
+streamlit run app/app.py
+```
+
+The app opens in your browser (default http://localhost:8501).
+
+## Reproduce the Results
+
+Run the notebooks from the `notebooks/` folder in this order, each from top to bottom:
+
+1. `00_eda.ipynb`: data quality checks, plots, and the processed dataset
+2. `01_linear_regression.ipynb`, `02_decision_tree.ipynb`, `03_random_forest.ipynb`: cross-validation for each model (the test set is not used)
+3. `04_final_model_evaluation.ipynb`: one-time test evaluation, residual analysis, and saving the pipeline to `models/`
+
+All notebooks use `RANDOM_STATE = 42` and the same split, so results are reproducible.
+
+## Using the App
+
+Enter the nutrient values for one food item and the app returns the predicted calories (kcal) and the name of the model used (Linear Regression).
+
+| Field | Unit | Allowed range |
+| --- | --- | --- |
+| Protein | g | [fill in from app] |
+| Carbohydrates | g | 0 to 300 |
+| Fat | g | [fill in from app] |
+| Fiber | g | [fill in from app] |
+| Sugar | g | [fill in from app] |
+
+Input rules:
+- Negative values are not accepted.
+- At least one nutrient must be greater than 0.
+- Blank or non-numeric entries revert to default values instead of crashing the app.
+
+The output is a single estimate in kcal. Linear Regression does not provide class probabilities.
+
+## Model Limitations
+
+- Trained on one dataset of 5,000 records, and the data may be synthetic (for example, sugar and carbohydrates are uncorrelated, and every feature has a spike at zero). Results may differ on measured food-composition data.
+- Uses five nutrients only. Portion size, preparation method, alcohol and water content are not considered.
+- Typical error is about 24 kcal (MAE), roughly 5% of an average food item. It is not suitable for uses that need label-grade precision.
+- Inputs far outside the training range (for example, carbohydrates above about 120 g) are extrapolations and may be less reliable.
+
+## Troubleshooting
+
+| Problem | Fix |
+| --- | --- |
+| `ModuleNotFoundError` | Activate your virtual environment and run `pip install -r requirements.txt` again. |
+| `FileNotFoundError` for the model | Run `streamlit run app/app.py` from the repository root, and make sure the saved pipeline exists in `models/` (run `04_final_model_evaluation.ipynb` to create it). |
+| Warning about scikit-learn version when loading the model | Install the exact versions in `requirements.txt`. |
+| Notebook cannot find `calorie_dataset.csv` | Place it in `data/original/` (see the Dataset section for the download link). |
+| Port already in use | Run `streamlit run app/app.py --server.port 8502`. |
+
+## Authors
+
+[Member names]
+
+## Acknowledgments and References
+
+Dataset: see the Kaggle link above (MIT License). Built with Python, pandas, scikit-learn and Streamlit. Full references are in the project paper (`paper/`).
