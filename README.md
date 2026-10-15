@@ -35,7 +35,7 @@ Linear Regression had the lowest cross-validation RMSE and was selected. It was 
 ## Folder Structure
 
 ```
-calorie-predictor/
+the-boys_calorie-predictor-using-ml/
 ├── app/                 Streamlit application (app.py)
 ├── data/
 │   ├── original/        Original dataset and source note
