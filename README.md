@@ -14,7 +14,7 @@ The models were trained and evaluated under identical experimental conditions (s
 
 ## Dataset
 
-- **Source:** [Add source link here]
+- **Source:** https://www.kaggle.com/datasets/amineipad/food-nutrition-dataset-for-calorie-classification
 - **Records:** 5,000 food items
 - **Features:** protein_g, carbs_g, fat_g, fiber_g, sugar_g
 - **Target:** calories
