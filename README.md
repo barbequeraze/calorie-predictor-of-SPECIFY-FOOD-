@@ -61,8 +61,8 @@ Requires Python 3.11. Run these commands in a terminal.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/barbeque-raze/calorie-predictor-of-SPECIFY-FOOD-.git
-   cd calorie-predictor-of-SPECIFY-FOOD-
+   git clone https://github.com/barbequeraze/the-boys_calorie-predictor-using-ml.git
+   cd the-boys_calorie-predictor-using-ml
    ```
 
 2. (Recommended) Create and activate a virtual environment:
@@ -92,9 +92,9 @@ The app opens in your browser (default http://localhost:8501).
 
 Run the notebooks from the `notebooks/` folder in this order, each from top to bottom:
 
-1. `00_eda.ipynb`: data quality checks, plots, and the processed dataset
-2. `01_linear_regression.ipynb`, `02_decision_tree.ipynb`, `03_random_forest.ipynb`: cross-validation for each model (the test set is not used)
-3. `04_final_model_evaluation.ipynb`: one-time test evaluation, residual analysis, and saving the pipeline to `models/`
+1. `eda.ipynb`: data quality checks, plots, and the processed dataset
+2. `linear_regression.ipynb`, `decision_tree.ipynb`, `random_forest.ipynb`: cross-validation for each model (the test set is not used)
+3. `final_model_evaluation.ipynb`: one-time test evaluation, residual analysis, and saving the pipeline to `models/`
 
 All notebooks use `RANDOM_STATE = 42` and the same split, so results are reproducible.
 
@@ -129,14 +129,17 @@ The output is a single estimate in kcal. Linear Regression does not provide clas
 | Problem | Fix |
 | --- | --- |
 | `ModuleNotFoundError` | Activate your virtual environment and run `pip install -r requirements.txt` again. |
-| `FileNotFoundError` for the model | Run `streamlit run app/app.py` from the repository root, and make sure the saved pipeline exists in `models/` (run `04_final_model_evaluation.ipynb` to create it). |
+| `FileNotFoundError` for the model | Run `streamlit run app/app.py` from the repository root, and make sure the saved pipeline exists in `models/` (run `final_model_evaluation.ipynb` to create it). |
 | Warning about scikit-learn version when loading the model | Install the exact versions in `requirements.txt`. |
 | Notebook cannot find `calorie_dataset.csv` | Place it in `data/original/` (see the Dataset section for the download link). |
 | Port already in use | Run `streamlit run app/app.py --server.port 8502`. |
 
 ## Authors
 
-[Member names]
+Millonte, Lord Cedrick M.
+Luna, Robi Troy
+Manalang, Wil Conrad
+Cadiz, Jefferson de
 
 ## Acknowledgments and References
 
